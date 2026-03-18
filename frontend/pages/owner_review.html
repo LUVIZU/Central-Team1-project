@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>우리 가게 리뷰</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/owner_review.css" />
+    <script src="../js/owner_review.js" defer></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const backBtn = document.querySelector(".top_bar__back");
+
+        // ✅ 현재 storeId 가져오기
+        const params = new URLSearchParams(window.location.search);
+        const storeId = params.get("storeId");
+
+        if (backBtn) {
+          backBtn.addEventListener("click", () => {
+            if (storeId) {
+              window.location.href = `owner_mypage.html?storeId=${storeId}`;
+            } else {
+              // storeId 없으면 그냥 기본 이동
+              window.location.href = "owner_mypage.html";
+            }
+          });
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <main class="app_frame review-container">
+      <!-- 상단 바 -->
+      <header class="top_bar">
+        <h1 class="top_bar__title">우리 가게 리뷰</h1>
+        <button class="top_bar__back" aria-label="뒤로가기">
+          <img src="../images/back.png" alt="뒤로가기" class="back-icon" />
+        </button>
+      </header>
+
+      <!-- 리뷰 요약 -->
+      <section class="review-summary">
+        <h2 class="summary-title">
+          리뷰 요약
+          <img src="../images/ai_blue.png" alt="AI 아이콘" class="ai-icon" />
+        </h2>
+        <p class="summary-text">(AI 요약 내용은 여기에 표시됩니다.)</p>
+      </section>
+
+      <!-- 리뷰 목록 (JS에서 API로 채움) -->
+      <section class="review-list"></section>
+
+      <!-- 템플릿 (JS에서 복제해서 사용) -->
+      <template id="review-card-template">
+        <div class="review-card">
+          <div class="review-date"></div>
+          <div class="review-text"></div>
+          <div class="review-items"></div>
+        </div>
+      </template>
+    </main>
+  </body>
+</html>

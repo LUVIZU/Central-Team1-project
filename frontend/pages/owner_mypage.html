@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>사장님 마이페이지</title>
+
+    <!-- 스타일은 별도 CSS에서 정의하세요 -->
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/owner_mypage.css" />
+    <script src="../js/owner_mypage.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const storeId = new URLSearchParams(window.location.search).get(
+          "storeId"
+        );
+
+        // ✅ 우리 가게 리뷰 링크 storeId 유지
+        if (storeId) {
+          const reviewLink = document.querySelector(
+            "a[href='owner_review.html']"
+          );
+          if (reviewLink) {
+            reviewLink.href = `owner_review.html?storeId=${storeId}`;
+          }
+
+          const editBtn = document.getElementById("edit-store-btn");
+          if (editBtn) {
+            editBtn.addEventListener("click", () => {
+              window.location.href = `store_enroll.html?storeId=${storeId}`;
+            });
+          }
+        }
+
+        // ✅ 로그아웃 처리
+        const logoutBtn = document.getElementById("btn-logout");
+        if (logoutBtn) {
+          logoutBtn.addEventListener("click", () => {
+            // 쿠키/로컬스토리지 토큰 삭제 (둘 중 쓰는 쪽만 남기면 됨)
+            document.cookie =
+              "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            localStorage.removeItem("accessToken");
+
+            // 로그인 화면으로 이동
+            window.location.href = "login.html";
+          });
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <main class="app_frame page owner-home" aria-live="polite">
+      <!-- 상단 바 -->
+      <header class="top_bar">
+        <h1 class="top_bar__title">사장님</h1>
+      </header>
+
+      <!-- 본문 -->
+      <section class="owner-actions" aria-label="사장님 메뉴">
+        <!-- 가게 정보 수정 -->
+        <button
+          type="button"
+          id="edit-store-btn"
+          class="card-btn"
+          aria-label="가게 정보 수정"
+        >
+          <span class="card-btn__icon" aria-hidden="true">
+            <img src="../images/store.png" alt="" />
+          </span>
+          <span class="card-btn__text">가게 정보 수정</span>
+        </button>
+
+        <!-- 우리 가게 리뷰 -->
+        <a
+          href="owner_review.html"
+          class="card-btn"
+          aria-label="우리 가게 리뷰"
+        >
+          <span class="card-btn__icon" aria-hidden="true">
+            <img src="../images/review!.png" alt="" />
+          </span>
+          <span class="card-btn__text">우리 가게 리뷰</span>
+        </a>
+
+        <!-- 하단 액션 (추후 백엔드 연동) -->
+        <div class="owner-etc-actions" role="group" aria-label="기타 작업">
+          <!-- 나중에 API 연동: id/data-action만 잡아둠 -->
+          <button
+            type="button"
+            id="btn-logout"
+            class="chip-btn"
+            data-action="logout"
+          >
+            로그아웃
+          </button>
+          <button
+            type="button"
+            id="btn-delete-account"
+            class="chip-btn chip-btn--danger"
+            data-action="delete-account"
+          >
+            계정 삭제
+          </button>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

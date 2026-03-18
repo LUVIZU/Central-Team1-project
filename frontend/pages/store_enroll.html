@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <title>가게 등록</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/store_enroll.css" />
+    <script src="../js/config.js"></script>
+    <script src="../js/store_enroll.js" defer></script>
+  </head>
+  <body>
+    <main class="app_frame" aria-live="polite">
+      <!-- Topbar -->
+      <header class="top_bar"><h1 class="top_bar__title">가게 등록</h1></header>
+
+      <form action="#" method="post" autocomplete="off" class="enroll-form">
+        <!-- 상호명 -->
+        <label for="store-name">상호명</label>
+        <input
+          id="store-name"
+          name="storeName"
+          type="text"
+          autocomplete="organization"
+          required
+        />
+        <!-- 위치 -->
+        <label for="store-location">위치</label>
+        <div class="search_container">
+          <input
+            id="store-location"
+            name="location"
+            type="text"
+            class="input_field"
+            autocomplete="street-address"
+            required
+          />
+          <img
+            src="../images/search.svg"
+            class="search_icon"
+            alt="검색 아이콘"
+          />
+        </div>
+        <!-- 가게 대표 사진 -->
+        <div class="field fiegit reset --soft HEAD~1ld--photo">
+          <label for="photo-input" class="field__label">가게 대표 사진 </label>
+
+          <div class="photo">
+            <button
+              type="button"
+              class="photo__trigger"
+              id="photo-trigger"
+              data-action="photo-trigger"
+              aria-controls="photo-input"
+              aria-label="메뉴 사진 추가"
+            >
+              +
+            </button>
+            <input
+              id="photo-input"
+              name="storeImage"
+              type="file"
+              accept="image/*"
+              hidden
+              data-field="imageFile"
+            />
+          </div>
+        </div>
+        <!-- 영업시간 -->
+        <p class="time-label">영업시간</p>
+        <div class="time-row">
+          <input
+            id="open-time"
+            name="openTime"
+            type="text"
+            placeholder="시작 시간"
+            pattern="[0-9]{2}:[0-9]{2}"
+            inputmode="numeric"
+            required
+          />
+          <span class="tilde" aria-hidden="true"></span>
+          <input
+            id="close-time"
+            name="closeTime"
+            type="text"
+            placeholder="종료 시간"
+            pattern="[0-9]{2}:[0-9]{2}"
+            inputmode="numeric"
+            required
+          />
+        </div>
+        <button type="submit">위치 등록하기</button>
+      </form>
+      <!-- 휠 피커 -->
+      <div class="time-wheel" id="time-wheel" hidden>
+        <div class="center-bar" aria-hidden="true"></div>
+        <div class="col hour"></div>
+        <div class="col minute"></div>
+        <div class="col ampm"></div>
+      </div>
+    </main>
+  </body>
+</html>

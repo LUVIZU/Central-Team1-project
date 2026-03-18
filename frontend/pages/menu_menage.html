@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>주문 관리</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/menu_menage.css" />
+    <script src="../js/menu_menage.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const params = new URLSearchParams(window.location.search);
+        const storeId = params.get("storeId");
+
+        if (storeId) {
+          const mypageLink = document.querySelector(".top_bar__action");
+          if (mypageLink) {
+            mypageLink.href = `owner_mypage.html?storeId=${storeId}`;
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <main class="app_frame" aria-live="polite">
+      <!-- 상단 탑바 -->
+      <header class="top_bar">
+        <h1 class="top_bar__title">주문 관리</h1>
+        <a
+          href="owner_mypage.html"
+          class="top_bar__action"
+          aria-label="마이페이지로 이동"
+        >
+          <img
+            src="../images/mypage.png"
+            alt="마이페이지"
+            class="icon-settings"
+          />
+        </a>
+      </header>
+
+      <!-- 주문 목록 섹션 -->
+      <section class="content order-section">
+        <ul id="order-list" class="order-list" aria-label="주문 목록">
+          <!-- 🔥 JS에서 동적으로 주문 카드 렌더링 -->
+        </ul>
+      </section>
+
+      <!-- 주문 카드 템플릿 -->
+      <template id="order-card-template">
+        <li class="order-card" data-id="">
+          <div class="order-card__head">
+            <div class="order-card__order-info">
+              <span class="order-card__label">주문번호</span>
+              <a href="#" class="order-card__number" data-order-number>00000</a>
+            </div>
+            <span class="order-card__remain" data-remain-time>00분 후</span>
+          </div>
+
+          <ul class="order-card__items" data-items></ul>
+
+          <div class="order-card__pickup">
+            <span class="pickup-label">픽업 예약 시간</span>
+            <time class="pickup-time" data-pickup-time>0:00 PM</time>
+          </div>
+
+          <div class="order-card__price">
+            <s class="origin-price" data-origin-price>0원</s>
+            <span class="discount-rate" data-discount-rate>0%</span>
+            <strong class="final-price" data-final-price>0원</strong>
+          </div>
+        </li>
+      </template>
+
+      <!-- 하단 상태 -->
+      <div
+        class="bottom-status"
+        id="countdown"
+        role="status"
+        aria-live="polite"
+      >
+        주문 받기
+      </div>
+
+      <!-- 하단 탭바 -->
+      <nav class="bottom_nav" aria-label="하단 메뉴">
+        <!-- ✅ href는 임시(#)만 주고 JS에서 동적으로 설정 -->
+        <a href="#" id="menu-manage-link" class="bottom_nav_item is-active">
+          <img src="../images/menu_deact.svg" alt="메뉴관리" />
+        </a>
+        <a href="menu_menage.html" class="bottom_nav_item">
+          <img src="../images/order_act.svg" alt="주문관리" />
+        </a>
+      </nav>
+    </main>
+    <script src="../js/bottom_nav.js"></script>
+  </body>
+</html>
