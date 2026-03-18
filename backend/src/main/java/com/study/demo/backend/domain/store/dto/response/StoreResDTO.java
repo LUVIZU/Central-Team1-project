@@ -1,0 +1,88 @@
+package com.study.demo.backend.domain.store.dto.response;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Builder;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
+
+public class StoreResDTO {
+
+    @Builder
+    public record CreateStoreRes(
+            Long storeId,
+            String name,
+            LocalTime openingTime,
+            LocalTime closingTime,
+            BigDecimal latitude,
+            BigDecimal longitude,
+            LocalDateTime createdAt
+    ){
+    }
+
+    @Builder
+    public record StoreDetail(
+            Long storeId,
+            String name,
+            String roadAddressName,
+            String imageUrl,
+            LocalTime openingTime,
+            LocalTime closingTime,
+            BigDecimal latitude,
+            BigDecimal longitude,
+            LocalDateTime createdAt,
+            boolean favorited,
+            boolean openStatus
+    ) {}
+
+    // 무한 스크롤, 커서 기반 페이지네이션을 위해 필요한 데이터
+    public record StoreDetailList(
+            List<StoreDetail> stores,
+            boolean nextData,
+            Long nextCursor
+    ) {}
+
+    @Builder
+    public record UpdateStoreRes(
+            Long storeId,
+            String name,
+            LocalTime openingTime,
+            LocalTime closingTime,
+            BigDecimal latitude,
+            BigDecimal longitude,
+            LocalDateTime updatedAt,
+            String imageUrl,
+            boolean openStatus
+    ) {}
+
+    @Builder
+    public record CloseRes(
+            Long storeId,
+            LocalTime previousClosingTime,
+            LocalTime newClosingTime,
+            boolean openStatus
+    ) {}
+
+    @Builder
+    public record OpenRes(
+            Long storeId,
+            LocalTime previousOpeningTime,
+            LocalTime newOpeningTime,
+            boolean openStatus
+    ) {}
+
+    @Builder
+    @Schema(name = "가게 존재 여부 응답 DTO")
+    public record StoreExists(
+            @Schema(description = "가게 존재 여부", example = "true")
+            boolean exists,
+
+            @Schema(description = "가게 ID (존재하는 경우)", example = "1")
+            Long storeId,
+
+            @Schema(description = "가게 이름 (존재하는 경우)", example = "김밥천국")
+            String storeName
+    ) {}
+}
